@@ -4,7 +4,7 @@
     "rewrites": [
       {
         "source": "**",
-        "functions": "api",
+        "function": "api"
       }
     ],
     "ignore": [
