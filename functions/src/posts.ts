@@ -32,3 +32,29 @@ export function createNewPost(req: Request, res: Response) {
     res.status(202).send({ success: true, message: 'post Updated ' + uid })
   }
 
+
+export async function deletePost(req: Request, res: Response) {
+    const { uid } = req.params
+    const db = dbConnect()
+   await db.collection('posts').doc(uid).delete()
+        .catch(err => res.status(500).send({ success: false, message: err }))
+    res.status(202).send({ success: true, message: 'post Deleted' })
+  }
+
+
+export async function getOnePost(req: Request, res: Response) {
+    const { uid } = req.params
+    const db = dbConnect()
+    const doc = await db.collection('posts').doc(uid).get()
+//    await db.collection('posts').doc(uid).get()
+
+if (!doc.exists){
+    console.log("no match")
+    res.status(404).send({ success: false, message: 'not found'})
+
+} else{
+    res.status(202).send({ success: true, message: doc.data()})
+
+}
+}
+        
