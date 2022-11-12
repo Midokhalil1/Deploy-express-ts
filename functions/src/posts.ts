@@ -4,8 +4,10 @@ import { Request, Response } from 'firebase-functions/v1'
 
 export function createNewPost(req: Request, res: Response) {
     const db = dbConnect()
-    db.collection('posts').add(req.body)
-      .then(() => getAllPosts(req, res))
+    db.collection('posts')
+    .add(req.body)
+    //   .then(() => getAllPosts(req, res))
+      .then(newPost => res.status(201).send({sucess: true, message: 'Post created' + newPost.id }))
       .catch(err => res.status(500).send({ success: false, message: err }))
   }
 
