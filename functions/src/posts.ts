@@ -12,8 +12,9 @@ export function createNewPost(req: Request, res: Response) {
   export function getAllPosts(req: Request, res: Response) {
     const db = dbConnect()
     db.collection('posts').get()
-      .then(collection => {
-        const postsArr = collection.docs.map(doc => {
+      .then((collection: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>) => {
+        console.log(collection.size)
+        const postsArr = collection.docs.map((doc: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>) => {
           return { ...doc.data(), postId: doc.id }
         })
         res.send(postsArr)
