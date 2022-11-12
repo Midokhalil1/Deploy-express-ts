@@ -14,7 +14,7 @@ export function createNewPost(req: Request, res: Response) {
     db.collection('posts').get()
       .then(collection => {
         const postsArr = collection.docs.map(doc => {
-          return { ...doc.data(), albumId: doc.id }
+          return { ...doc.data(), postId: doc.id }
         })
         res.send(postsArr)
       })
